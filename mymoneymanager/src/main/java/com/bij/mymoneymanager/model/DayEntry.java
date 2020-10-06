@@ -1,60 +1,29 @@
 package com.bij.mymoneymanager.model;
 
-import java.util.Date;
+import com.bij.mymoneymanager.util.DateUtil;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
-public class DayEntry {
+@Entity
+public @Data class DayEntry {
 
-    private int id;
-    private Date date;
-    private List<SingleEntry> inList ;
-    private List<SingleEntry> outList ;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
+    @Column(nullable = false)
+    //@DateTimeFormat(pattern = DateUtil.FORMAT_DAY_ONLY)
+    /*@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtil.FORMAT_DAY_ONLY)*/
+    private LocalDate date;
+    @OneToMany(mappedBy = "dayEntry", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JsonManagedReference
+    private List<SingleEntry> singleEntryList;
+    @ManyToOne
+    @JoinColumn(nullable=false)
+    private User user;
 
-    public DayEntry() {
-    }
-
-    public DayEntry(int id, Date date, List<SingleEntry> inList, List<SingleEntry> outList) {
-        this.id = id;
-        this.date = date;
-        this.inList = inList;
-        this.outList = outList;
-    }
-
-    public DayEntry(Date date, List<SingleEntry> inList, List<SingleEntry> outList) {
-        this.date = date;
-        this.inList = inList;
-        this.outList = outList;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public List<SingleEntry> getInList() {
-        return inList;
-    }
-
-    public void setInList(List<SingleEntry> inList) {
-        this.inList = inList;
-    }
-
-    public List<SingleEntry> getOutList() {
-        return outList;
-    }
-
-    public void setOutList(List<SingleEntry> outList) {
-        this.outList = outList;
-    }
 }

@@ -1,7 +1,7 @@
 package com.bij.mymoneymanager.service;
 
-import com.bij.mymoneymanager.enumeration.CategoryName;
 import com.bij.mymoneymanager.model.Category;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

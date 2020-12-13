@@ -5,5 +5,6 @@ import com.bij.mymoneymanager.model.User;
 public interface UserService {
 
     User create (User user);
+    User findByUsername (String username);
 
 }
